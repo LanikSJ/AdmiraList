@@ -16,6 +16,9 @@ jobs:
       ${{ github.actor == 'LanikSJ' }}
       ${{ github.actor == 'github-actions' }}
     steps:
-    - uses: hmarr/auto-approve-action@v4
-      with:
-        github-token: "${{ secrets.GITHUB_TOKEN }}"
+    - uses: hmarr/auto-approve-action@8f929096a962e83ccdfa8afcf855f39f12d4dac7 # v4.0.0
+      if: github.actor == 'LanikSJ'
+    - uses: hmarr/auto-approve-action@8f929096a962e83ccdfa8afcf855f39f12d4dac7 # v4.0.0
+      if: github.actor == 'dependabot[bot]'
+    - uses: hmarr/auto-approve-action@8f929096a962e83ccdfa8afcf855f39f12d4dac7 # v4.0.0
+      if: github.actor == 'github-actions'
