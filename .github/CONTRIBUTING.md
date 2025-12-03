@@ -5,18 +5,33 @@ email, or any other method with the owners of this repository before making a ch
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
+## Contributing to AdmiraList
+
+AdmiraList is a text file (`AdmiraList.txt`) containing domains associated with Admiral's anti-adblock software. To contribute:
+
+1. **Adding Domains**: Add new domains one per line, ensuring they are valid and relevant.
+2. **Sorting**: Keep the file sorted alphabetically to maintain organization.
+3. **Validation**: Run the project linter to ensure formatting standards are met.
+4. **Testing**: Verify that additions don't break compatibility with ad-blocking tools.
+
+### Development Setup
+
+- Clone the repository.
+- Ensure `pnpm` is installed if needed for linting.
+- The project uses `@adguard/dead-domains-linter` for validation.
+
 ## Pull Request Process
 
-1. Ensure any install or build dependencies are removed before the end of the layer when doing a build.
-2. Update the README.md with details of changes to the interface, this includes new environment variables, exposed ports, useful file locations and container parameters.
-3. Increase the version numbers in any examples files and the README.md to the new version that this Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org).
-4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
+1. Ensure your changes follow the contributing guidelines outlined above, including proper sorting and validation.
+2. Write a clear PR description explaining what domains were added/removed and why.
+3. If significant changes are made (e.g., many domains or policy changes), update the README.md if necessary.
+4. You may merge the Pull Request once it has been reviewed and approved by at least one maintainer. If you do not have merge permissions, request a reviewer to merge it for you.
 
 ## Code of Conduct
 
 ### Our Pledge
 
-In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
+In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to make participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
 ### Our Standards
 
@@ -54,14 +69,16 @@ Project maintainers who do not follow or enforce the Code of Conduct in good fai
 
 ## Attribution
 
-This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org),version 2.1, available [here](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html).
+This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.1, available [here](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html).
 
 Community Impact Guidelines were inspired by [Mozilla's code of conduct enforcement ladder](https://github.com/mozilla/diversity).
 
 For answers to common questions about this code of conduct, see the [FAQ](https://www.contributor-covenant.org/faq). Translations are available [here](https://www.contributor-covenant.org/translations).
 
-[Homepage](https://www.contributor-covenant.org)
-[v2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html)
-[Mozilla CoC](https://github.com/mozilla/diversity)
-[FAQ](https://www.contributor-covenant.org/faq)
-[Translations](https://www.contributor-covenant.org/translations)
+### References
+
+- [Homepage](https://www.contributor-covenant.org)
+- [v2.1 Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html)
+- [Mozilla CoC](https://github.com/mozilla/diversity)
+- [FAQ](https://www.contributor-covenant.org/faq)
+- [Translations](https://www.contributor-covenant.org/translations)
