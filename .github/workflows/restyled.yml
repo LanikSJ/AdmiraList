@@ -24,10 +24,10 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout Base Branch
         uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.base.ref }}
       - name: Setup Restyled
         uses: restyled-io/actions/setup@e90fee4e224c2f8118e07245c5264f916bcc52b6 # v4.4.8
       - name: Run Restyled
@@ -55,11 +55,8 @@ jobs:
       github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout Base Repository
         uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
       - name: Setup Restyled
         uses: restyled-io/actions/setup@e90fee4e224c2f8118e07245c5264f916bcc52b6 # v4.4.8
       - name: Run Restyled
