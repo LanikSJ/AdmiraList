@@ -2,7 +2,8 @@
 
 ## Repository Overview
 
-AdmiraList is a personal filter list for uBlock Origin and other ad blockers, containing cosmetic filters for annoying website elements.
+AdmiraList is a personal filter list for uBlock Origin and other ad blockers, containing cosmetic filters for annoying
+website elements.
 
 ## Code Standards and Practices
 
