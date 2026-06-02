@@ -1,4 +1,4 @@
-# AI Rules & Project Standards for AdmiraList
+# Agent Rules & Project Standards for AdmiraList
 
 ## Repository Overview
 
