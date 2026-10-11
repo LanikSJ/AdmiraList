@@ -19,7 +19,7 @@ main() {
   log_info "Resolving latest fop-rs release..."
   for i in {1..5}; do
     if latest_tag=$(curl -fS -L --connect-timeout 20 https://github.com/ryanbr/fop-rs/releases/latest -o /dev/null -w "%{url_effective}" | awk -F/ '{print $NF}'); then
-      if [ -n "$latest_tag" ]; then
+      if [ "$latest_tag" != "" ]; then
         break
       fi
     fi
@@ -27,7 +27,7 @@ main() {
     sleep 10
   done
 
-  if [ -z "$latest_tag" ]; then
+  if [ "$latest_tag" = "" ]; then
     log_error "Could not retrieve latest release tag."
     exit 1
   fi
@@ -41,7 +41,7 @@ main() {
       log_info "Successfully installed fop-rs to $target_dir/fop"
 
       # If running in GitHub Actions, add target_dir to GITHUB_PATH
-      if [ -n "${GITHUB_PATH:-}" ]; then
+      if [ "${GITHUB_PATH:-}" != "" ]; then
         echo "$target_dir" >>"$GITHUB_PATH"
         log_info "Added $target_dir to GITHUB_PATH"
       fi
