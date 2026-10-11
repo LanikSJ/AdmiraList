@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "AdmiraList.txt"
+      - 'AdmiraList.txt'
   workflow_dispatch:
 
 permissions:
