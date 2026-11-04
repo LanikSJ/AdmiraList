@@ -74,10 +74,7 @@ If the user asks to review a specific directory, append `--dir <path>`. The dire
 | `--uncommitted`       | Staged changes and unstaged edits to tracked files                             |
 | `--include-untracked` | Include untracked files; may combine with `--uncommitted`, never `--committed` |
 | `--light`             | Reduce review context; changes review policy, not output format                |
-| `--base main`         | Compare against specific branch; saves the branch as the repository's          |
-|                       | `coderabbit.baseBranch` preference, so later reviews without `--base` may use  |
-|                       | a different comparison base than intended — preserve or restore the prior      |
-|                       | preference when appropriate                                                    |
+| `--base main`         | Compare against specific branch; saves the branch as the repository's `coderabbit.baseBranch` preference, so later reviews without `--base` may use a different comparison base than intended — preserve or restore the prior preference when appropriate |
 | `--base-commit`       | Compare against specific commit hash                                           |
 | `--dir <path>`        | Review directory path; must be inside an initialized Git working tree          |
 | `--agent`             | Agent-readable review output and fix guidance                                  |
