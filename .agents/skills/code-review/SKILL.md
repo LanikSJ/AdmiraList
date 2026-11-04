@@ -105,7 +105,7 @@ When user requests implementation + review:
 3. Create task list from findings
 4. Fix actionable issues within the authorized scope, prioritizing critical and major findings
 5. Re-run review to verify fixes. If the original scope was `--committed`, do not treat that committed-snapshot review as verification of uncommitted working-tree fixes —
-   instead select a verification scope that includes the working-tree changes (for example `--uncommitted`), or ask the user to commit the fixes before repeating the committed review.
+   instead select a scope that includes all working-tree changes. Use `--uncommitted` for tracked fixes. Add `--include-untracked` for non-ignored untracked fixes, or ask the user to commit the fixes before repeating the committed review.
 6. Report remaining findings and stop when the requested fixes are verified; avoid unbounded review loops
 
 ### 5. Review Specific Changes
