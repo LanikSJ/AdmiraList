@@ -21,7 +21,7 @@ website elements.
 - Run `markdownlint <filename>` on every markdown file before considering it complete
 - Follow the project's `.markdownlint.json` configuration strictly
 - Common requirements include:
-  - Maximum line length of 80 characters (MD013)
+  - Maximum line length of 300 characters (MD013)
   - Consistent heading styles and hierarchy
   - Proper list formatting and indentation
   - Blank lines around headings and code blocks
