@@ -18,7 +18,7 @@ website elements.
 
 - **ALL markdown files (.md) MUST pass markdownlint validation**
   with zero errors or warnings
-- Run `markdownlint <filename>` on every markdown file before considering it complete
+- Run `markdownlint --config .markdownlint.json <filename>` on every markdown file before considering it complete
 - Follow the project's `.markdownlint.json` configuration strictly
 - Common requirements include:
   - Maximum line length of 300 characters (MD013)
@@ -29,7 +29,7 @@ website elements.
   - No trailing whitespace
   - Files must end with newlines
   - Proper table formatting when applicable
-- Use `markdownlint --fix <filename>` for auto-fixable issues when available
+- Use `markdownlint --config .markdownlint.json --fix <filename>` for auto-fixable issues when available
 - Validate markdown files in CI/CD pipelines where applicable
 
 ### Local markdownlint Configuration (MANDATORY)

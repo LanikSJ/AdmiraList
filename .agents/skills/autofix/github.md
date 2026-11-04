@@ -14,10 +14,19 @@ Use this helper when a skill needs thread-aware CodeRabbit PR feedback, not flat
 Get the PR number for the current branch:
 
 ```bash
-pr_number=$(gh pr list --head "$(git branch --show-current)" --state open --json number --jq '.[0].number')
+pr_payload=$(gh pr list --head "$(git branch --show-current)" --state open --json number)
+pr_count=$(jq 'length' <<<"$pr_payload")
 
-if [ -z "$pr_number" ] || [ "$pr_number" = "null" ]; then
+if [ "$pr_count" -eq 0 ]; then
   # no open PR for this branch
+  pr_number=""
+elif [ "$pr_count" -eq 1 ]; then
+  pr_number=$(jq -r '.[0].number' <<<"$pr_payload")
+else
+  echo "❌ Multiple open PRs found for this branch:" >&2
+  jq -r '.[] | "  - PR #\(.number)"' <<<"$pr_payload" >&2
+  echo "Please specify which PR number to autofix." >&2
+  exit 1
 fi
 ```
 
@@ -82,15 +91,15 @@ while :; do
   # Fail-closed: reject responses with errors or missing reviewThreads/pageInfo before appending nodes
   if jq -e '.errors' <<<"$response" >/dev/null 2>&1; then
     echo "GraphQL response contained errors; aborting pagination." >&2
-    break
+    exit 1
   fi
   if ! jq -e '.data.repository.pullRequest.reviewThreads' <<<"$response" >/dev/null 2>&1; then
     echo "GraphQL response missing reviewThreads; aborting pagination." >&2
-    break
+    exit 1
   fi
   if ! jq -e '.data.repository.pullRequest.reviewThreads.pageInfo' <<<"$response" >/dev/null 2>&1; then
     echo "GraphQL response missing pageInfo; aborting pagination." >&2
-    break
+    exit 1
   fi
 
   all_threads=$(jq -c --argjson response "$response" '
@@ -100,7 +109,10 @@ while :; do
   has_next=$(jq -r '.data.repository.pullRequest.reviewThreads.pageInfo.hasNextPage' <<<"$response")
   cursor=$(jq -r '.data.repository.pullRequest.reviewThreads.pageInfo.endCursor // empty' <<<"$response")
   [ "$has_next" = "true" ] || break
-  [ -n "$cursor" ] || break
+  [ -n "$cursor" ] || {
+    echo "GraphQL response missing endCursor; aborting pagination." >&2
+    exit 1
+  }
 done
 ```
 

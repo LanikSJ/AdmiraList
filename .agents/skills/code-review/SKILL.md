@@ -74,7 +74,7 @@ If the user asks to review a specific directory, append `--dir <path>`. The dire
 | `--uncommitted`       | Staged changes and unstaged edits to tracked files                             |
 | `--include-untracked` | Include untracked files; may combine with `--uncommitted`, never `--committed` |
 | `--light`             | Reduce review context; changes review policy, not output format                |
-| `--base main`         | Compare against specific branch                                                |
+| `--base main`         | Compare against specific branch; saves the branch as the repository's `coderabbit.baseBranch` preference, so later reviews without `--base` may use a different comparison base than intended — preserve or restore the prior preference when appropriate |
 | `--base-commit`       | Compare against specific commit hash                                           |
 | `--dir <path>`        | Review directory path; must be inside an initialized Git working tree          |
 | `--agent`             | Agent-readable review output and fix guidance                                  |
@@ -104,7 +104,7 @@ When user requests implementation + review:
 2. Run `"/absolute/path/to/coderabbit" review --agent` with any requested scope flags (`--committed`, `--uncommitted`, `--base`, `--base-commit`, `--dir`)
 3. Create task list from findings
 4. Fix actionable issues within the authorized scope, prioritizing critical and major findings
-5. Re-run review to verify fixes
+5. Re-run review to verify fixes. If the original scope was `--committed`, do not treat that committed-snapshot review as verification of uncommitted working-tree fixes — instead select a verification scope that includes the working-tree changes (for example `--uncommitted`), or ask the user to commit the fixes before repeating the committed review.
 6. Report remaining findings and stop when the requested fixes are verified; avoid unbounded review loops
 
 ### 5. Review Specific Changes

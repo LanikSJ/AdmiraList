@@ -32,18 +32,22 @@ authentication configured in their own environment; they cannot reuse a local
 host credential store.
 
 In a local agent sandbox, use the harness's supported command-scoped host
-execution for `auth status --agent` and the user-requested `review --agent`.
-Request normal approval with a command-specific justification. In Codex modes
+execution for `auth status --agent`, `review --agent`, and the authenticated
+auxiliary workflows required by cli-workflows.md (`usage --agent`,
+`pullrequest --show-prompts --agent`). Request normal approval with a
+command-specific justification for each eligible invocation. In Codex modes
 exposing `sandbox_permissions`, use `require_escalated` on that exact call;
 other agents use their supported permission mechanism. If unavailable or denied,
 stop and report the missing permission. Do not first run auth or review in the
 sandbox as a permission probe. Do not change session-wide sandbox settings or
 silently fall back to a sandboxed command.
 
-Only auth-check (`auth status --agent`), review (`review --agent`), and
-authenticated usage (`usage --agent`) invocations are eligible for host
-execution. Invoke the trusted executable directly with literal, validated
-arguments; no wrappers, pipes, expansions, or repository-provided commands.
+Only auth-check (`auth status --agent`), review (`review --agent`), and the
+authenticated auxiliary workflows required by cli-workflows.md — authenticated
+usage (`usage --agent`) and PR prompts (`pullrequest --show-prompts --agent`) —
+are eligible for host execution. Invoke the trusted executable directly with
+literal, validated arguments; no wrappers, pipes, expansions, or repository-provided
+commands.
 If the sandbox cannot access the credential store for an eligible invocation,
 offer a user-run handoff: provide the exact command for the user to run in
 their own terminal, then stop and await confirmation before proceeding.
