@@ -67,17 +67,17 @@ If the user asks to review a specific directory, append `--dir <path>`. The dire
 
 **Options:**
 
-| CLI option            | Description                                                                    |
-| --------------------- | ------------------------------------------------------------------------------ |
-| No scope option       | Tracked changes (default)                                                      |
-| `--committed`         | Committed changes only                                                         |
-| `--uncommitted`       | Staged changes and unstaged edits to tracked files                             |
-| `--include-untracked` | Include untracked files; may combine with `--uncommitted`, never `--committed` |
-| `--light`             | Reduce review context; changes review policy, not output format                |
+| CLI option            | Description                                                                                                                                                                                                                                               |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| No scope option       | Tracked changes (default)                                                                                                                                                                                                                                 |
+| `--committed`         | Committed changes only                                                                                                                                                                                                                                    |
+| `--uncommitted`       | Staged changes and unstaged edits to tracked files                                                                                                                                                                                                        |
+| `--include-untracked` | Include untracked files; may combine with `--uncommitted`, never `--committed`                                                                                                                                                                            |
+| `--light`             | Reduce review context; changes review policy, not output format                                                                                                                                                                                           |
 | `--base main`         | Compare against specific branch; saves the branch as the repository's `coderabbit.baseBranch` preference, so later reviews without `--base` may use a different comparison base than intended — preserve or restore the prior preference when appropriate |
-| `--base-commit`       | Compare against specific commit hash                                           |
-| `--dir <path>`        | Review directory path; must be inside an initialized Git working tree          |
-| `--agent`             | Agent-readable review output and fix guidance                                  |
+| `--base-commit`       | Compare against specific commit hash                                                                                                                                                                                                                      |
+| `--dir <path>`        | Review directory path; must be inside an initialized Git working tree                                                                                                                                                                                     |
+| `--agent`             | Agent-readable review output and fix guidance                                                                                                                                                                                                             |
 
 Default scope includes committed, staged, and tracked unstaged changes; raw untracked files are excluded, while staged new files are included. `--include-untracked` also works by itself with the
 default scope: `"/absolute/path/to/coderabbit" review --agent --include-untracked` reviews those tracked changes plus non-ignored untracked files. It does not require `--uncommitted`.
