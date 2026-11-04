@@ -73,13 +73,24 @@ Check: `git status` + check for unpushed commits
 Resolve `pr_number`:
 
 ```bash
-pr_payload=$(gh pr list --head "$(git branch --show-current)" --state open --json number)
+local_commit=$(git rev-parse HEAD)
+pr_payload=$(gh pr list --head "$(git branch --show-current)" --state open --json number,headRefOid,isCrossRepository)
 pr_count=$(jq 'length' <<<"$pr_payload")
 
 if [ "$pr_count" -eq 0 ]; then
   # no open PR for this branch
   pr_number=""
 elif [ "$pr_count" -eq 1 ]; then
+  head_ref_oid=$(jq -r '.[0].headRefOid' <<<"$pr_payload")
+  is_cross_repo=$(jq -r '.[0].isCrossRepository' <<<"$pr_payload")
+  if [ "$is_cross_repo" = "true" ]; then
+    echo "❌ Open PR #$(jq -r '.[0].number' <<<"$pr_payload") is from a forked repository; refusing to autofix." >&2
+    exit 1
+  fi
+  if [ "$head_ref_oid" != "$local_commit" ]; then
+    echo "❌ PR #$(jq -r '.[0].number' <<<"$pr_payload") head commit ($head_ref_oid) does not match local checkout ($local_commit)." >&2
+    exit 1
+  fi
   pr_number=$(jq -r '.[0].number' <<<"$pr_payload")
 else
   echo "❌ Multiple open PRs found for this branch:" >&2
@@ -89,7 +100,7 @@ else
 fi
 ```
 
-**If no PR:** If the check above indicates no PR, ask "Create PR?" → If yes, create the PR with:
+**If no PR:** If the check above indicates no PR, ask "Create PR?" → If no, EXIT. If yes, create the PR with:
 
 ```bash
 title=$(git log -1 --pretty=format:'%s')
@@ -99,7 +110,7 @@ gh pr create --title "$title" --body "${body:-Auto-created by CodeRabbit autofix
 
 After creating the PR, inform "Run skill again in ~5 min", EXIT.
 
-**Otherwise:** Proceed to Step 3.
+**If a PR exists:** Proceed to Step 3.
 
 ### Step 3: Fetch Thread-Aware CodeRabbit Feedback
 

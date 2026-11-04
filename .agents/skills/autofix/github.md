@@ -14,13 +14,24 @@ Use this helper when a skill needs thread-aware CodeRabbit PR feedback, not flat
 Get the PR number for the current branch:
 
 ```bash
-pr_payload=$(gh pr list --head "$(git branch --show-current)" --state open --json number)
+local_commit=$(git rev-parse HEAD)
+pr_payload=$(gh pr list --head "$(git branch --show-current)" --state open --json number,headRefOid,isCrossRepository)
 pr_count=$(jq 'length' <<<"$pr_payload")
 
 if [ "$pr_count" -eq 0 ]; then
   # no open PR for this branch
   pr_number=""
 elif [ "$pr_count" -eq 1 ]; then
+  head_ref_oid=$(jq -r '.[0].headRefOid' <<<"$pr_payload")
+  is_cross_repo=$(jq -r '.[0].isCrossRepository' <<<"$pr_payload")
+  if [ "$is_cross_repo" = "true" ]; then
+    echo "❌ Open PR #$(jq -r '.[0].number' <<<"$pr_payload") is from a forked repository; refusing to autofix." >&2
+    exit 1
+  fi
+  if [ "$head_ref_oid" != "$local_commit" ]; then
+    echo "❌ PR #$(jq -r '.[0].number' <<<"$pr_payload") head commit ($head_ref_oid) does not match local checkout ($local_commit)." >&2
+    exit 1
+  fi
   pr_number=$(jq -r '.[0].number' <<<"$pr_payload")
 else
   echo "❌ Multiple open PRs found for this branch:" >&2
@@ -30,7 +41,7 @@ else
 fi
 ```
 
-If no PR exists and the user wants one created, derive title/body from the latest commit:
+If no PR exists and the user wants one created, derive title/body from the latest commit. If the user declines, EXIT without continuing to later sections:
 
 ```bash
 title=$(git log -1 --pretty=format:'%s')
