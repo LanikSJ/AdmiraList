@@ -47,6 +47,7 @@ If no PR exists and the user wants one created, derive title/body from the lates
 title=$(git log -1 --pretty=format:'%s')
 body=$(git log -1 --pretty=format:'%b')
 gh pr create --title "$title" --body "${body:-Auto-created by CodeRabbit autofix}"
+exit 0
 ```
 
 ## 2. Resolve Repository Coordinates
