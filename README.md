@@ -20,7 +20,6 @@ Pull requests are accepted and are very welcome! The format of the file is prett
 
 This project is licensed under the [Creative Commons Legal Code](https://creativecommons.org/licenses/by/4.0/legalcode).
 
-
 ## ⚙️ Skills Automation
 
 This repository maintains agent skills via `skills-lock.json`. The GitHub Actions
