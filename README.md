@@ -19,3 +19,13 @@ Pull requests are accepted and are very welcome! The format of the file is prett
 ## 📄 License
 
 This project is licensed under the [Creative Commons Legal Code](https://creativecommons.org/licenses/by/4.0/legalcode).
+
+
+## ⚙️ Skills Automation
+
+This repository maintains agent skills via `skills-lock.json`. The GitHub Actions
+workflow automatically updates the skills monthly and creates a pull request.
+
+- **Workflow**: `.github/workflows/skills-update.yml`
+- **Schedule**: Monthly on the 1st at 00:00 UTC
+- **Manual run**: `npx skills update`

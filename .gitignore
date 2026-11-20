@@ -115,3 +115,6 @@ build/
 
 # Thumbs
 .localized
+
+# Global .agents folder (using global .agents configuration)
+.agents/
